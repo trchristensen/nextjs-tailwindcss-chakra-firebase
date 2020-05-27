@@ -6,7 +6,7 @@ next.js template including tailwindcss
 
 - Includes Tailwindcss
 - Includes postcss-preset-env
-- Includes purgecss on production builds
+- now uses tailwindcss 1.4.x purge method on production builds
 
 ## usage
 

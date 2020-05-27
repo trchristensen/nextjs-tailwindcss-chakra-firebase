@@ -1,10 +1,8 @@
-/* purgecss start ignore */
 @tailwind base;
 @tailwind components;
-/* purgecss end ignore */
-
-@tailwind utilities;
 
 body {
-  @apply bg-blue-500 p-12;
+  @apply p-12 bg-blue-500;
 }
+
+@tailwind utilities;
