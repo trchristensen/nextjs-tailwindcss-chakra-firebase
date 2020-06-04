@@ -1,6 +1,6 @@
 # nextjs-tailwindcss template
 
-next.js template including tailwindcss
+next.js template including tailwindcss, **check out** the [jsx-tailwind](https://github.com/andybroger/nextjs-tailwindcss/tree/jsx-tailwind) branch if you need support for @apply rules in styled-jsx.
 
 **Features**
 
