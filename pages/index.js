@@ -1,9 +1,29 @@
-export default () => (
-  <div className="p-4 bg-white rounded shadow">
-    <h1 className="text-2xl font-bold">Next.js</h1>
-    <p className="text-gray-500">
-      with Tailwind CSS & postcss-preset-env. Now uses tailwind purge method for
-      production builds.
-    </p>
-  </div>
-);
+import db from '../firebase/config';
+import { useEffect } from 'react'
+
+export default () => {
+   const [posts, setPosts] = React.useState([]);
+
+   useEffect(() => {
+     db
+       .firestore()
+       .collection('posts')
+       .onSnapshot(snap => {
+         const posts = snap.docs.map(doc => ({
+           id: doc.id,
+           ...doc.data(),
+         }));
+         setPosts(posts);
+       });
+   }, []);
+
+  return(
+   <>
+     {posts.map((post) => (
+       <div>
+        {JSON.stringify(post)}
+       </div>
+        ))}
+   </>
+  )
+}
