@@ -2,7 +2,7 @@
 @tailwind components;
 
 body {
-  @apply p-12 bg-blue-500;
+  @apply bg-gray-100;
 }
 
 @tailwind utilities;

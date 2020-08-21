@@ -1,11 +1,16 @@
 import '../styles/main.css';
+import { ThemeProvider, CSSReset } from '@chakra-ui/core';
+import Head from 'next/head';
+import NavBar from '../components/NavBar/NavBar';
 
 export default function MyApp({ Component, pageProps }) {
   return (
-    <div className="app">
-      <div className="container mx-auto p-4 bg-white rounded shadow">
+    <ThemeProvider>
+      <CSSReset />
+      <div className="app">
+        <NavBar />
         <Component {...pageProps} />
       </div>
-    </div>
+    </ThemeProvider>
   );
 }

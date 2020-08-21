@@ -1,29 +1,56 @@
-import db from '../firebase/config';
-import { useEffect } from 'react'
+import firebase from '../firebase/config';
+import { useEffect, useState } from 'react';
+import { Stack } from '@chakra-ui/core';
+import CreatePost from '../components/CreatePost/CreatePost';
+import Post from '../components/Post/Post';
 
 export default () => {
-   const [posts, setPosts] = React.useState([]);
+  const [posts, setPosts] = useState([]);
 
-   useEffect(() => {
-     db
-       .firestore()
-       .collection('posts')
-       .onSnapshot(snap => {
-         const posts = snap.docs.map(doc => ({
-           id: doc.id,
-           ...doc.data(),
-         }));
-         setPosts(posts);
-       });
-   }, []);
+  useEffect(() => {
+    // This way is for live listening.
+    // db.collection('posts')
+    //   .onSnapshot(snap => {
+    //     const posts = snap.docs.map(doc => ({
+    //       id: doc.id,
+    //       ...doc.data(),
+    //     }));
+    //     setPosts(posts);
+    //   });
 
-  return(
-   <>
-     {posts.map((post) => (
-       <div>
-        {JSON.stringify(post)}
-       </div>
-        ))}
-   </>
-  )
-}
+    const fetchData = async () => {
+      const db = firebase.firestore()
+      const data = await db
+        .collection('posts')
+        .orderBy('timestamp', 'desc')
+        .get();
+        const posts = data.docs.map(doc => ({...doc.data(), id: doc.id}));
+        console.log(posts)
+      setPosts(posts);
+    }
+    fetchData()
+  }, []);
+
+    const addPost = (post) => {
+     setPosts([post, ...posts]);
+   };
+
+  return (
+    <div className="p-12 mt-12">
+      <CreatePost addPost={addPost} />
+
+      <hr className="my-8" />
+      {posts ? (
+        <div>
+          <Stack spacing={8}>
+            {posts.map(post => (
+              <Post key={post.id} post={post} />
+            ))}
+          </Stack>
+        </div>
+      ) : (
+        <div>Loading...</div>
+      )}
+    </div>
+  );
+};

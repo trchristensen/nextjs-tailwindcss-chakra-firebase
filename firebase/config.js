@@ -1,4 +1,5 @@
 import firebase from 'firebase';
+import 'firebase/auth'
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -10,6 +11,7 @@ const firebaseConfig = {
   appId: process.env.FIREBASE_APP_ID,
   measurementId: process.env.FIREBASE_MEASUREMENT_ID,
 };
+
 try {
   firebase.initializeApp(firebaseConfig);
 } catch (err) {
@@ -17,5 +19,5 @@ try {
     console.error('Firebase initialization error', err.stack);
   }
 }
-const db = firebase
-export default db;
+
+export default firebase;
