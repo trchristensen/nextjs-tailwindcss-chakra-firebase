@@ -19,14 +19,14 @@ const CreatePost = ({addPost}) => {
       .collection('posts')
       .add(post)
       .then((data) => {
-        console.log('Document successfully written!');
+        console.log('Post successfully written!');
         addPost({...post, id: data.id});
         
          setTitle('');
          setContent('');
       })
       .catch(function (error) {
-        console.error('Error writing document: ', error);
+        console.error('Error writing Post: ', error);
       });
   };
 

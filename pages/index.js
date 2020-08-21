@@ -31,8 +31,15 @@ export default () => {
     fetchData()
   }, []);
 
+
     const addPost = (post) => {
      setPosts([post, ...posts]);
+   };
+
+   const removePost = index => {
+     const newPosts = [...posts];
+     newPosts.splice(index, 1);
+     setPosts(newPosts);
    };
 
   return (
@@ -43,8 +50,8 @@ export default () => {
       {posts ? (
         <div>
           <Stack spacing={8}>
-            {posts.map(post => (
-              <Post key={post.id} post={post} />
+            {posts.map((post, index) => (
+              <Post key={post.id} index={index} post={post} removePost={removePost} />
             ))}
           </Stack>
         </div>

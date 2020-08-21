@@ -1,6 +1,24 @@
 import React from 'react';
 import { Box, Heading, Text, Button } from '@chakra-ui/core';
-const Post = ({post}) => {
+import firebase from '../../firebase/config'
+
+const Post = ({post, removePost, index}) => {
+
+  const handleDelete = (index) => {
+
+    firebase
+      .firestore()
+      .collection('posts').doc(post.id)
+      .delete()
+      .then(() => {
+        console.log('Post successfully deleted!');
+        removePost(index);
+      })
+      .catch(error => {
+        console.error('Error deleting Post: ', error);
+      });
+
+  }
   
   return (
     <Box className="post p-6 border-b border-blue-400" id={`post-${post.id}`}>
@@ -11,7 +29,7 @@ const Post = ({post}) => {
         </div>
         <div className="actions">
           <Button
-          onClick={() => alert('hi')}
+          onClick={() => handleDelete(index)}
           >Delete</Button>
         </div>
       </div>
